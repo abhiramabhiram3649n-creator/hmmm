@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;500;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 50%, #ffc3a0 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Background Hearts */
+        .heart-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            animation: floatUp linear forwards;
+            z-index: 0;
+            user-select: none;
+        }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+
+        /* The Card */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 420px;
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 77, 109, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 4px solid #fff;
+            transition: height 0.3s ease;
+        }
+
+        /* Images */
+        .sticker {
+            height: 160px;
+            width: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            transition: transform 0.2s;
+        }
+        .sticker:hover { transform: scale(1.05); }
+
+        /* Typography */
+        h1 {
+            color: #ff3366;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .btn-primary {
+            background: #ff3366;
+            color: white;
+        }
+        .btn-primary:active { transform: scale(0.95); }
+
+        .btn-yes {
+            background: #ff3366;
+            color: white;
+        }
+
+        .btn-no {
+            background: white;
+            color: #ff3366;
+            border: 2px solid #ff3366;
+        }
+
+        /* Sections */
+        .step { display: none; animation: fadeIn 0.6s ease; }
+        .step.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        
+        <div class="step active" id="step1">
+            <img src="https://media.tenor.com/LhKZH_9tC28AAAAi/mochi-peach-cat-cute.gif" class="sticker" alt="Blushing">
+            
+            <h1>I have a confession...</h1>
+            <p>
+                To be honest, you've been on my mind kinda a lot lately.<br>
+                You look really good... like, distracting kinda good. 🫣
+            </p>
+            <p style="color: #ff3366; font-weight: bold;">I think I have a huge crush on you.</p>
+            
+            <button class="btn btn-primary" onclick="nextStep(1)">So...</button>
+        </div>
+
+        <div class="step" id="step2">
+            <img id="ask-img" src="https://media.tenor.com/K2sE98I_eC4AAAAi/mochi-peach-cat-cute.gif" class="sticker" alt="Asking">
+            
+            <h1 id="ask-title">Will you be my Valentine?</h1>
+            <p id="ask-text">Be mine kinda? 🥺</p>
+            
+            <div class="btn-group">
+                <button class="btn btn-yes" id="yesBtn" onclick="nextStep(2)">YES ❤️</button>
+                <button class="btn btn-no" id="noBtn" onclick="handleNo()">No</button>
+            </div>
+        </div>
+
+        <div class="step" id="step3">
+            <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" class="sticker" alt="Kiss">
+            
+            <h1>YAYYYY! 🎉</h1>
+            <p>I knew you felt the same way!<br>(Eventually hehe)</p>
+            <p style="font-size: 0.9rem; color: #888;">It's a date. ❤️</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- LOGIC ---
+        function nextStep(currentStep) {
+            // Hide current
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show next
+            const next = currentStep + 1;
+            document.getElementById(`step${next}`).classList.add('active');
+
+            if (next === 3) {
+                spawnConfetti();
+            }
+        }
+
+        // --- NO BUTTON TRAP ---
+        let noCount = 0;
+        const noPhrases = [
+            "Are you sure?",
+            "Really sure?",
+            "Look at me... 🥺",
+            "Don't break my heart!",
+            "I'm gonna cry...",
+            "Just click YES!"
+        ];
+        
+        // Sad Bunny GIF
+        const sadGif = "https://media.tenor.com/P1qgQc_F5jIAAAAi/mochi-peach-cat-sad.gif";
+
+        function handleNo() {
+            noCount++;
+            const title = document.getElementById('ask-title');
+            const text = document.getElementById('ask-text');
+            const img = document.getElementById('ask-img');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+
+            // 1. Change Text
+            if (noCount <= noPhrases.length) {
+                title.innerText = noPhrases[noCount - 1];
+                text.innerText = "Why are you being like this? 😭";
+            } else {
+                title.innerText = "OKAY FINE.";
+                text.innerText = "You have no choice now.";
+            }
+
+            // 2. Change Image to Sad Bunny
+            img.src = sadGif;
+
+            // 3. Grow YES Button
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            const currentPad = parseFloat(window.getComputedStyle(yesBtn).paddingTop);
+            yesBtn.style.fontSize = `${currentSize * 1.4}px`;
+            yesBtn.style.padding = `${currentPad * 1.2}px ${currentPad * 1.5}px`;
+
+            // 4. Shrink NO Button
+            if (noCount > 6) {
+                noBtn.style.display = 'none'; // Hide it eventually
+            }
+        }
+
+        // --- BACKGROUND HEARTS ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = ['❤️', '💖', '🌸', '🥰'][Math.floor(Math.random() * 4)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }
+        setInterval(createHeart, 400);
+
+        function spawnConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createHeart, i * 50); // Burst of hearts
+            }
+        }
+    </script>
+</body>
+</html>

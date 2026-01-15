@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Jithuu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Moving Background Animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glass Card Container */
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 90%;
+            width: 400px;
+            z-index: 10;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Gentle floating text animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        p {
+            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #ffe6eb;
+        }
+
+        /* Button Styling */
+        .btn {
+            background: #fff;
+            color: #e73c7e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #ffe6eb;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Flying Hearts Styles */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            margin: 0 10px;
+            transform: rotate(-45deg);
+            animation: fly 4s linear forwards;
+            z-index: 1;
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .heart::before { top: -15px; left: 0; }
+        .heart::after { left: 15px; top: 0; }
+
+        @keyframes fly {
+            0% { bottom: -50px; opacity: 1; transform: rotate(-45deg) translateX(0); }
+            100% { bottom: 110vh; opacity: 0; transform: rotate(-45deg) translateX(50px); }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Jithuu</h1>
+        
+        <p>
+            Sometimes, life gives us people who make every moment brighter just by being there.<br><br>
+            I just wanted to take a moment to say <span class="highlight">thank you</span> for being such an amazing friend. You are truly special.
+        </p>
+
+        <button class="btn" onclick="createHearts()">Click for a Surprise ✨</button>
+    </div>
+
+    <script>
+        function createHearts() {
+            const container = document.body;
+            // Create 20 hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    
+                    // Randomize position and size
+                    heart.style.left = Math.random() * 100 + "vw";
+                    heart.style.animationDuration = Math.random() * 2 + 3 + "s"; 
+                    
+                    // Random color tint (optional, mostly white but varied opacity)
+                    heart.style.opacity = Math.random() * 0.5 + 0.3;
+                    
+                    container.appendChild(heart);
+
+                    // Remove heart from DOM after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+    </script>
+
+</body>
+</html>
